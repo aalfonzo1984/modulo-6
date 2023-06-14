@@ -27,3 +27,7 @@ def ingredientes(request):
         form = IngredienteForm()
 
     return render(request, 'recetas/ingredientes.html', {'form': form, 'ingredientes': ingredientes, 'titulo': titulo})
+
+
+def recetas(request):
+    pass
