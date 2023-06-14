@@ -1,0 +1,64 @@
+{% load static %}
+
+<header id="header-wrap">
+    <div class="container">
+        <div class="row">
+            <nav class="navbar navbar-expand-lg col-md-12">
+
+                <div class="navbar-brand">
+                    <a href="{% url 'index' %}">
+                        <img src="{% static 'images/recetas-logo.png' %}">
+                    </a>
+                </div>
+
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                    data-target="#slide-navbar-collapse" aria-controls="slide-navbar-collapse" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"><i class="icon icon-navicon"></i></span>
+                </button>
+
+                <div class="navbar-collapse collapse" id="slide-navbar-collapse">
+                    <ul class="navbar-nav light list-inline strong sf-menu">
+                        <li class="nav-item active">
+                            <a href="{% url 'index' %}" class="nav-link" data-effect="Home">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'ingredientes' %}" class="nav-link"
+                                data-effect="Reservation">INGREDIENTES</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="menu.html" class="nav-link" data-effect="Menu">RECETAS</a>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#" data-effect="Blog" class="nav-link" class="dropdown-toggle">BLOG</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a href="blog1.html" class="hvr-sweep-to-right">BLOG 1</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="blog2.html" class="hvr-sweep-to-right">BLOG 2</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div><!--navbar-collapse-->
+
+                <div class="social-block">
+                    <div class="social-icon">
+                        <a href="facebook.com">
+                            <i class="icon icon-facebook"></i>
+                        </a>
+                        <a href="twitter.com">
+                            <i class="icon icon-twitter"></i>
+                        </a>
+                        <a href="instagram.com">
+                            <i class="icon icon-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div><!--.row-->
+
+    </div>
+</header>

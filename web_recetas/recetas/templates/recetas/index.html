@@ -1,0 +1,40 @@
+{% extends 'recetas/base.html' %}
+{% block header %}
+{% include 'recetas/header.html' %}
+{% endblock %}
+
+{% block content %}
+<section class="text-center featured-food-wrap heading">
+    <div class="container">
+
+        <h2 class="section-title"><strong>Check </strong>featured dishes</h2>
+        <div class="divider dark mb-4">
+            <div class="icon-wrap">
+                <i class="icon icon-spoon"></i>
+            </div>
+        </div>
+        <!-- Se muestran 10 recetas en un slide -->
+        <div class="box-wrap slider">
+            {% for receta in recetas %}
+            <div class="col-md-4 row-cols-sm-1 box">
+                <figure>
+                    <a href="#">
+                        <img src="{{receta.imagen.url}}">
+                    </a>
+                </figure>
+                <div class="text-content text-align ">
+
+                    <div class="content">
+                        <h3><a href="#">{{receta.nombre}}</a></h3>
+                        <p>{{receta.descripcion | truncatechars:60}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div><!--box-wrap-->
+    </div>
+</section>
+
+{% endblock %}

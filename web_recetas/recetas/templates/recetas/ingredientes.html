@@ -1,0 +1,74 @@
+{% extends 'recetas/base.html' %} {% load static %} {% block content %}
+{% include 'recetas/navbar.html' %}
+<section>
+    <div class="page-banner">
+        <div class="text-content bright heading text-center light">
+            <h1 class="section-title"><strong>AGREGUE</strong> un ingrediente</h1>
+            <div class="divider mb-4">
+                <div class="icon-wrap">
+                    <i class="icon icon-spoon"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--site-banner-->
+</section>
+
+<section class="chef-recommended-wrap">
+    <div class="container">
+        <div class="heading text-center">
+            <h2 class="section-title text-center mb-4">
+                <strong>Ingrediente </strong>nuevo
+            </h2>
+            <div class="divider dark mb-4">
+                <form class="search-form" action="{% url 'ingredientes' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group mb-4">
+                        {{form.nombre}}
+                        <div>
+                            <!-- muestro los errores si los hay al guardar -->
+                            {% if form.errors %}
+                            {% for field in form %}
+                            {% if field.errors %}
+                            {{field.errors}}
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <button class="button btn-effect" type="submit">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+
+        <div class="dark price-list mt-sm-5 mt-5">
+            <div class="row">
+
+                {% for ingrediente in ingredientes %}
+                <table class="col-md-6">
+
+
+                    <tr>
+                        <td>
+                            <img src="{% static 'images/food1.jpg' %}" class="menuImg">
+                            <div class="title">
+                                <strong>{{ingrediente.nombre}}</strong>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                </table>
+                {% endfor %}
+
+            </div>
+        </div>
+</section>
+{% endblock %}
