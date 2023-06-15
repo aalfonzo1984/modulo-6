@@ -1,0 +1,77 @@
+{% extends 'recetas/base.html' %} {% load static %}
+{% block content %}
+
+{% include 'recetas/navbar.html' %}
+<section>
+    <div class="page-banner">
+        <div class="text-content bright heading text-center light">
+            <h1 class="section-title">{{receta.nombre}}</h1>
+            <div class="divider mb-4">
+                <div class="icon-wrap">
+                    <i class="icon icon-spoon"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--site-banner-->
+</section>
+
+<section class="blog-page">
+    <div class="container mt-sm-5 mt-6">
+        <div class="row">
+            <div id="main-content" class="col-md-8">
+                <div class="row">
+                    <div class="post-item mb-5">
+                        <figure>
+                            <img src="{{receta.imagen.url}}" alt="food3" class="postImg">
+                        </figure>
+                        <div class="post-content">
+                            <h2 class="post-title"><a href="single-blog.html">{{receta.nombre}}</a></h2>
+                            <div class="meta-tags">
+                                <em class="meta-comment"><strong>{{receta.descripcion}}</strong></em>
+                            </div>
+                            <p>{{receta.preparacion}}</p>
+                        </div>
+
+
+
+                    </div>
+
+                </div><!--main-content-->
+
+
+
+            </div>
+            <div class="right-sidebar col-md-3">
+                <div class="row">
+
+                    <div class="recent-post-box sidebar-box">
+                        <h3>ultimas recetas</h3>
+                        {% for receta in ultimas_recetas %}
+                        <div class="content d-flex mb-3">
+                            <div class="post-image">
+                                <img src="{{receta.imagen.url}}" class="rpImg">
+                            </div>
+                            <div class="text-block color-secondary">
+                                <a href="{% url 'receta' receta.id %}">{{receta.nombre}}</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div><!--.ultimas recetas-->
+
+                    <div class="categories-box sidebar-box">
+                        <h3>Ingredientes</h3>
+                        <ul class="list-unstyled color-secondary">
+                            {% for i in receta.ingredientes.all %}
+                            <li><a>{{i}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div><!--ingredientes-->
+                </div>
+            </div><!--right-sidebar-->
+        </div>
+
+</section>7jg
+
+{% endblock%}

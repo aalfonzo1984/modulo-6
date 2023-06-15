@@ -7,8 +7,10 @@ from recetas.forms import *
 
 def index(request):
     titulo = 'Home'
-    recetas = Receta.objects.all()
-    return render(request, 'recetas/index.html', {'titulo': titulo, 'recetas': recetas})
+    # Traigo las ultimas 5 recetas guardadas
+    recetas = Receta.objects.order_by('-id')[:5]
+    context = {'titulo': titulo, 'recetas': recetas}
+    return render(request, 'recetas/index.html', context)
 
 
 def ingredientes(request):
@@ -25,9 +27,22 @@ def ingredientes(request):
 
     else:
         form = IngredienteForm()
-
-    return render(request, 'recetas/ingredientes.html', {'form': form, 'ingredientes': ingredientes, 'titulo': titulo})
+    context = {'form': form, 'ingredientes': ingredientes, 'titulo': titulo}
+    return render(request, 'recetas/ingredientes.html', context)
 
 
 def recetas(request):
-    pass
+    titulo = 'Recetas'
+    recetas = Receta.objects.all()
+    context = {'recetas': recetas, 'titulo': titulo}
+    return render(request, 'recetas/recetas.html', context)
+
+
+def receta(request, pk):
+    receta = Receta.objects.get(id=pk)
+    print(receta.ingredientes.all())
+    ultimas_recetas = Receta.objects.order_by('-id')[:3]
+    titulo = receta.nombre
+    context = {'receta': receta, 'titulo': titulo,
+               'ultimas_recetas': ultimas_recetas}
+    return render(request, 'recetas/receta.html', context)
