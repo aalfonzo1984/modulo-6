@@ -32,9 +32,18 @@ def ingredientes(request):
 
 
 def recetas(request):
+    
     titulo = 'Recetas'
     recetas = Receta.objects.all()
-    context = {'recetas': recetas, 'titulo': titulo}
+    if request.method == 'GET':
+        form = RecetaForm(request.GET)
+        if form['nombre'].value():
+            recetas = Receta.objects.filter(nombre__icontains=form['nombre'].value())
+            
+        """ elif form['ingredientes'].value():
+            recetas = Receta.objects.filter(ingredientes__icontains=form['ingredientes'].value()) """
+
+    context = {'recetas': recetas, 'titulo': titulo, 'form':form}
     return render(request, 'recetas/recetas.html', context)
 
 
