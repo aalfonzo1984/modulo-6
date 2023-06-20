@@ -34,7 +34,7 @@ def ingredientes(request):
 def recetas(request):
 
     titulo = 'Recetas'
-
+    recetas = Receta.objects.all()  # Se muestran todas las recetas
     if request.method == 'GET':
         form = RecetaForm(request.GET)
         if form['nombre'].value():  # Busqueda por nombre de receta
@@ -43,10 +43,8 @@ def recetas(request):
 
         elif form['ingredientes'].value():  # Busqueda por los ingredientes de las recetas
             recetas = Receta.objects.filter(
-                ingredientes__id__in=form['ingredientes'].value())  # Filtro a la BD, escogiendo solamente las recetas que contengan los ingredientes seleccionados
-            print(recetas)
-        else:
-            recetas = Receta.objects.all()  # Se muestran todas las recetas
+                ingredientes__id__in=form['ingredientes'].value()).distinct()  # Filtro a la BD, escogiendo solamente las recetas que contengan los ingredientes seleccionados
+            
 
     context = {'recetas': recetas, 'titulo': titulo, 'form': form}
     return render(request, 'recetas/recetas.html', context)
