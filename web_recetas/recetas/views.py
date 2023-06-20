@@ -16,7 +16,7 @@ def index(request):
 def ingredientes(request):
     titulo = 'Ingredientes'
     ingredientes = Ingrediente.objects.all()
-    if request.method == 'POST':
+    if request.method == 'POST':  # Si el metodo de la request es POST se intenta guardar el ingrediente, caso  de que no se pueda guardar se returna el error del formulario
         try:
             form = IngredienteForm(request.POST)
             if form.is_valid():
@@ -32,24 +32,28 @@ def ingredientes(request):
 
 
 def recetas(request):
-    
+
     titulo = 'Recetas'
-    recetas = Receta.objects.all()
+
     if request.method == 'GET':
         form = RecetaForm(request.GET)
-        if form['nombre'].value():
-            recetas = Receta.objects.filter(nombre__icontains=form['nombre'].value())
-            
-        """ elif form['ingredientes'].value():
-            recetas = Receta.objects.filter(ingredientes__icontains=form['ingredientes'].value()) """
+        if form['nombre'].value():  # Busqueda por nombre de receta
+            recetas = Receta.objects.filter(
+                nombre__icontains=form['nombre'].value())  # Filtro a la BD, comparando si los registros contienen las palabras intgroducidas en el campo del formulario
 
-    context = {'recetas': recetas, 'titulo': titulo, 'form':form}
+        elif form['ingredientes'].value():  # Busqueda por los ingredientes de las recetas
+            recetas = Receta.objects.filter(
+                ingredientes__id__in=form['ingredientes'].value())  # Filtro a la BD, escogiendo solamente las recetas que contengan los ingredientes seleccionados
+            print(recetas)
+        else:
+            recetas = Receta.objects.all()  # Se muestran todas las recetas
+
+    context = {'recetas': recetas, 'titulo': titulo, 'form': form}
     return render(request, 'recetas/recetas.html', context)
 
 
 def receta(request, pk):
     receta = Receta.objects.get(id=pk)
-    print(receta.ingredientes.all())
     ultimas_recetas = Receta.objects.order_by('-id')[:3]
     titulo = receta.nombre
     context = {'receta': receta, 'titulo': titulo,
