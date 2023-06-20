@@ -7001,7 +7001,7 @@ section.comment-respond {
 .page-banner{
     background: url(../images/main-banner.jpg) no-repeat;
     overflow: hidden;
-    height: 700px;
+    height: 200px;
     padding: 170px 0;
     position: relative;
 }

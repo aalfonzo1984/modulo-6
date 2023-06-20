@@ -1,0 +1,107 @@
+{% extends 'recetas/base.html' %}{% load static %}
+
+{% block content %}
+{% include 'recetas/navbar.html' %}
+<section>
+    <div class="page-banner">
+        <div class="text-content bright heading text-center light">
+            <h1 class="section-title"><strong>RECETAS</strong>DELICIOSAS</h1>
+            <div class="divider mb-4">
+                <div class="icon-wrap">
+                    <i class="icon icon-spoon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--site-banner-->
+</section>
+
+<section class="chef-recommended-wrap">
+    <div class="container">
+        <div class="heading text-center">
+            <h2 class="section-title text-center"></h2>
+            <div class="divider dark mb-4">
+                <div class="icon-wrap">
+                    <i class="icon icon-spoon"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- tab para busquedas -->
+        <div>
+            <p>
+                <button class="button btn-effect mb-3 ml-3" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Buscar
+                </button>
+            </p>
+            <div class="collapse mb-4 ml-3 mr-5" id="collapseExample">
+                <div class="card card-body">
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <form action="" method="get">
+                            {% csrf_token %}
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                        aria-controls="flush-collapseOne">
+                                        Buscar por nombre
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                    data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">{{form.nombre}}</div>
+                                    <button class="button btn-effect mb-2 ml-3" type="submit">Enviar</button>
+                                </div>
+                            </div>
+                        </form>
+                        <form action="" method="get">
+                            {% csrf_token %}
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                        aria-controls="flush-collapseTwo">
+                                        Buscar por ingredientes
+                                    </button>
+                                </h2>
+                                <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                    data-bs-parent="#accordionFlushExample">
+                                    <div class="accordion-body">{{form.ingredientes}}</div>
+                                    <button class="button btn-effect mb-2 ml-3" type="submit">Enviar</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--.tab para busquedas-->
+
+        <div class="recommended-items">
+            {% for receta in recetas %}
+            <div class="col-md-4 mb-5">
+                <figure class="zoom-effect">
+                    <a href="{% url 'receta' receta.id %}">
+                        <img src="{{receta.imagen.url}}" class="recomImg">
+                    </a>
+                </figure>
+                <div class="text-content text-align pt-4">
+                    <div class="content">
+                        <h3><a href="{% url 'receta' receta.id %}">{{receta.nombre}}</a></h3>
+                    </div>
+                    <p>{{receta.descripcion | truncatechars:60}}</p>
+                </div>
+                <button class="button btn-effect" type="button"><a>Ver receta</a></button>
+            </div>
+            {% endfor %}
+
+        </div><!--recommended-items--->
+
+
+    </div>
+</section>
+
+{% endblock%}

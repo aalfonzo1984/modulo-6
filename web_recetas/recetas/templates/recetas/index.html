@@ -1,13 +1,43 @@
 {% extends 'recetas/base.html' %}
+{% load static %}
 {% block header %}
 {% include 'recetas/header.html' %}
 {% endblock %}
 
 {% block content %}
+
+<section class="company-intro pt-60">
+    <div class="container">
+        <div class="row">
+            <div class="section-image col-md-7">
+                <img src="{% static 'images/food1.jpg' %}" class="introImg">
+            </div>
+
+            <div class="text-content text-center heading dark col-md-5">
+                <h2 class="section-title">
+                    <strong>Fácil </strong>Recetas para preparar en casa
+                </h2>
+                <div class="divider dark mb-4">
+                    <div class="icon-wrap">
+                        <i class="icon icon-spoon"></i>
+                    </div>
+                </div>
+                <p>
+                    ¡Bienvenidos a nuestra página de recetas culinarias!
+
+                    En nuestra plataforma, encontrarás una amplia variedad de recetas deliciosas y creativas que te
+                    ayudarán a explorar el mundo culinario desde la comodidad de tu hogar. Ya seas un principiante o un
+                    chef experimentado, aquí encontrarás algo que se adapte a tus gustos y preferencias.</p>
+            </div>
+
+        </div>
+</section>
+
+
 <section class="text-center featured-food-wrap heading">
     <div class="container">
 
-        <h2 class="section-title"><strong>Check </strong>featured dishes</h2>
+        <h2 class="section-title"><strong>Sabor</strong>lo mejor</h2>
         <div class="divider dark mb-4">
             <div class="icon-wrap">
                 <i class="icon icon-spoon"></i>
@@ -18,14 +48,14 @@
             {% for receta in recetas %}
             <div class="col-md-4 row-cols-sm-1 box">
                 <figure>
-                    <a href="#">
+                    <a href="{% url 'receta' receta.id %}">
                         <img src="{{receta.imagen.url}}">
                     </a>
                 </figure>
                 <div class="text-content text-align ">
 
                     <div class="content">
-                        <h3><a href="#">{{receta.nombre}}</a></h3>
+                        <h3><a href="{% url 'receta' receta.id %}">{{receta.nombre}}</a></h3>
                         <p>{{receta.descripcion | truncatechars:60}}</p>
                     </div>
                 </div>
@@ -36,5 +66,7 @@
         </div><!--box-wrap-->
     </div>
 </section>
+
+
 
 {% endblock %}
