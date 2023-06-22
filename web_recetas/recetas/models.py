@@ -4,6 +4,7 @@ from django.db import models
 class Ingrediente(models.Model):
     nombre = models.CharField(
         max_length=50, unique=True, verbose_name='Nombre de ingrediente')
+    imagen = models.ImageField(upload_to='ingredientes', verbose_name='Imagen del ingrediente')
 
     def __str__(self):
         return self.nombre

@@ -18,7 +18,7 @@ def ingredientes(request):
     ingredientes = Ingrediente.objects.all()
     if request.method == 'POST':  # Si el metodo de la request es POST se intenta guardar el ingrediente, caso  de que no se pueda guardar se returna el error del formulario
         try:
-            form = IngredienteForm(request.POST)
+            form = IngredienteForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
                 return redirect('.')

@@ -22,10 +22,10 @@
                 <strong>Ingrediente </strong>nuevo
             </h2>
             <div class="divider dark mb-4">
-                <form class="search-form" action="{% url 'ingredientes' %}" method="post">
+                <form class="search-form" action="{% url 'ingredientes' %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <div class="form-group mb-4">
-                        {{form.nombre}}
+                    <div class="form-group mb-3">
+                        {{form.as_p}}
                         <div>
                             <!-- muestro los errores si los hay al guardar -->
                             {% if form.errors %}
@@ -57,7 +57,7 @@
 
                     <tr>
                         <td>
-                            <img src="{% static 'images/food1.jpg' %}" class="menuImg">
+                            <img src="{{ingrediente.imagen.url}}" class="menuImg">
                             <div class="title">
                                 <strong>{{ingrediente.nombre}}</strong>
                             </div>

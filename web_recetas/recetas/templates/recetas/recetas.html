@@ -94,7 +94,7 @@
                     </div>
                     <p>{{receta.descripcion | truncatechars:60}}</p>
                 </div>
-                <button class="button btn-effect" type="button"><a>Ver receta</a></button>
+                <button class="button btn-effect" type="button" onclick="window.location.href='{% url 'receta' receta.id %}'">Ver receta</button>
             </div>
             {% endfor %}
 

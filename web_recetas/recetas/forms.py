@@ -3,16 +3,22 @@ from recetas.models import Ingrediente, Receta
 
 
 class IngredienteForm(ModelForm):
+    
     class Meta:
         model = Ingrediente
-        fields = ['nombre']
+        fields = ['nombre','imagen']
         # para modificar el aspecto del widgets
         widgets = {
             'nombre': TextInput(
                 attrs={
                     'placeholder': 'Ingrese el nuevo ingrediente',
                 }
-            )
+            ),
+            'imagen': ClearableFileInput(
+                attrs={'placeholder':'Seleccione una imagen',
+                       'class':'form-group',
+                }
+            ),
         }
 
     def clean_nombre(self):
