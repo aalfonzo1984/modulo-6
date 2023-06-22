@@ -32,7 +32,7 @@
                             <div class="meta-tags">
                                 <em class="meta-comment"><strong>{{receta.descripcion}}</strong></em>
                             </div>
-                            <p>{{receta.preparacion}}</p>
+                            <p>{{receta.preparacion | safe}}</p>
                             <button class="button btn-effect" type="button" onclick="window.location.href='{% url 'recetas' %}'">Volver</button>
                         </div>
 
@@ -41,8 +41,6 @@
                     </div>
 
                 </div><!--main-content-->
-
-
 
             </div>
             <div class="right-sidebar col-md-3">

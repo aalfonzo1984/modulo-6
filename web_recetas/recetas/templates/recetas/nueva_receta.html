@@ -1,0 +1,77 @@
+{% extends 'recetas/base.html' %} {% load static %} {% block content %}
+{%include 'recetas/navbar.html' %}
+
+<section>
+  <div class="page-banner">
+    <div class="text-content bright heading text-center light">
+      <h1 class="section-title"><strong>NUEVA</strong>receta</h1>
+      <div class="divider mb-4">
+        <div class="icon-wrap">
+          <i class="icon icon-spoon"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--site-banner-->
+</section>
+
+<section class="chef-recommended-wrap">
+  <div class="container">
+    <div class="heading text-center">
+      <h2 class="section-title text-center"></h2>
+      <div class="divider dark mb-4">
+        <div class="icon-wrap">
+          <i class="icon icon-spoon"></i>
+        </div>
+
+        <div class="card m-4">
+          <!-- Mostrar mensaje de éxito para la receta -->
+          {% if messages %} {% for message in messages %}
+          {% if message.tags == 'success' %}
+          <div class="alert alert-success mb-3" role="alert">{{ message }}</div>
+          {% endif %} {% endfor %} {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <form
+      action="{% url 'nueva_receta' %}"
+      method="post"
+      class="row justify-content-center"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <div class="form-group col-md-6 mt-3">
+        <div class="m-3">{{form.nombre.label}}{{form.nombre}}</div>
+        <div class="m-3">{{form.descripcion.label}}{{form.descripcion}}</div>
+        <div class="m-3">
+          {{form.preparacion.label}}{{form.preparacion}}{{form.media}}
+        </div>
+        <div class="m-3">{{form.imagen.label}}{{form.imagen}}</div>
+      </div>
+      <div class="form-group col-md-6">
+        <div class="form-check mt-3">
+          {{form.ingredientes.label}}{{form.ingredientes}}
+        </div>
+      </div>
+      {% if form.errors %}<!-- Si hay errores em el formulario los muestro-->
+      <div class="ml-3">
+        {% for field in form %} {% if field.errors %} {{field.label_tag}}
+        {{field.errors}} {% endif %} {% endfor %}
+      </div>
+      {% endif %}
+      <div class="ml-3">
+        <button class="button btn-effect mb-3" type="submit">Guardar</button>
+        <button
+          class="button btn-effect mb-3"
+          type="button"
+          onclick="window.location.href='{% url 'recetas' %}'"
+        >
+          Volver
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+{% endblock %}

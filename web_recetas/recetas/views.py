@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from recetas.models import Ingrediente, Receta
 from recetas.forms import *
 
@@ -57,3 +58,24 @@ def receta(request, pk):
     context = {'receta': receta, 'titulo': titulo,
                'ultimas_recetas': ultimas_recetas}
     return render(request, 'recetas/receta.html', context)
+
+
+def nueva_receta(request):
+
+    titulo = 'Nueva Receta'
+    if request.method == 'POST':
+        try:
+            form=NuevaRecetaForm(request.POST, request.FILES)
+            if form.is_valid(): 
+                form.save()
+                # Agrega un mensaje flash para indicar que la receta se ha agregado con éxito
+                messages.success(request, 'Receta agregada exitosamente.')
+                return redirect('.')# Redirige a la página de recetas
+        except:
+            return form.errors
+    else:
+        form=NuevaRecetaForm()
+
+    context = {'titulo':titulo, 'form':form}
+
+    return render(request, 'recetas/nueva_receta.html', context)

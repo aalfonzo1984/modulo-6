@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Ingrediente(models.Model):
@@ -18,9 +19,9 @@ class Ingrediente(models.Model):
 
 class Receta(models.Model):
     nombre = models.CharField(max_length=150, verbose_name='Nombre de receta')
-    descripcion = models.CharField(max_length=250, verbose_name='Descripción')
-    preparacion = models.TextField(verbose_name='Modo de Preparación')
-    imagen = models.ImageField(upload_to='recetas')
+    descripcion = models.CharField(max_length=500, verbose_name='Descripción')
+    preparacion = RichTextField(verbose_name='Modo de Preparación')
+    imagen = models.ImageField(upload_to='recetas', verbose_name='Imagen')
     ingredientes = models.ManyToManyField(Ingrediente)
 
     def __str__(self):
