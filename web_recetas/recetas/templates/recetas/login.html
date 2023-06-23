@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+</head>
+
+<body>
+    <div id="login">
+        <form method="post">
+            {% csrf_token %}
+            <h1>Login</h1>
+            <div class="form-group" placeholder="Usuario">{{form.username.label}}{{form.username}}</div>
+            <div class="form-group" placeholder="Usuario">{{form.password.label}}{{form.password}}</div>
+            <button type="submit">Iniciar</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
