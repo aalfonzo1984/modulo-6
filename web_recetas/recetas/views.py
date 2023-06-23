@@ -45,7 +45,6 @@ def recetas(request):
         elif form['ingredientes'].value():  # Busqueda por los ingredientes de las recetas
             recetas = Receta.objects.filter(
                 ingredientes__id__in=form['ingredientes'].value()).distinct()  # Filtro a la BD, escogiendo solamente las recetas que contengan los ingredientes seleccionados
-            
 
     context = {'recetas': recetas, 'titulo': titulo, 'form': form}
     return render(request, 'recetas/recetas.html', context)
@@ -65,17 +64,28 @@ def nueva_receta(request):
     titulo = 'Nueva Receta'
     if request.method == 'POST':
         try:
-            form=NuevaRecetaForm(request.POST, request.FILES)
-            if form.is_valid(): 
+            form = NuevaRecetaForm(request.POST, request.FILES)
+            ingrediente_form = IngredienteForm(request.POST, request.FILES)
+            if form.is_valid():
                 form.save()
                 # Agrega un mensaje flash para indicar que la receta se ha agregado con éxito
                 messages.success(request, 'Receta agregada exitosamente.')
-                return redirect('.')# Redirige a la página de recetas
+                return redirect('.')  # Redirige a la página de recetas
+
+            if ingrediente_form.is_valid():
+                ingrediente_form.save()
+                # Agrega un mensaje flash para indicar que el ingrediente se ha agregado con éxito
+                messages.success(request, 'Ingrediente agregado exitosamente.')
+                # Permanece en la página de nueva receta
+                return redirect('nueva_receta')
+
         except:
             return form.errors
     else:
-        form=NuevaRecetaForm()
+        form = NuevaRecetaForm()
+        ingrediente_form = IngredienteForm()
 
-    context = {'titulo':titulo, 'form':form}
+    context = {'titulo': titulo, 'form': form,
+               'ingrediente_form': ingrediente_form}
 
     return render(request, 'recetas/nueva_receta.html', context)
