@@ -66,6 +66,7 @@ def nueva_receta(request):
         try:
             form = NuevaRecetaForm(request.POST, request.FILES)
             ingrediente_form = IngredienteForm(request.POST, request.FILES)
+
             if form.is_valid():
                 form.save()
                 # Agrega un mensaje flash para indicar que la receta se ha agregado con éxito

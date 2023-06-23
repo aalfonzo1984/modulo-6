@@ -28,17 +28,21 @@
         {% if message.tags == 'success' %}
         <div class="alert alert-success mb-3" role="alert">{{ message }}</div>
         {% endif %} {% endfor %} {% endif %}
+
+        <!-- Si hay errores em el formulario los muestro-->
+        {% if form.errors %}
+        <div class="ml-3">
+          {% for field in form %} {% if field.errors %}<div class="alert alert-warning" role="alert">
+            {{field.label_tag}}
+            {{field.errors}}</div> {% endif %} {% endfor %}
+        </div>
       </div>
     </div>
     <div class="row">
       <!-- Agregar receta -->
       <div class="col-9">
-        <form
-          action="{% url 'nueva_receta' %}"
-          method="post"
-          class="row justify-content-center"
-          enctype="multipart/form-data"
-        >
+        <form action="{% url 'nueva_receta' %}" method="post" class="row justify-content-center"
+          enctype="multipart/form-data">
           {% csrf_token %}
           <div class="form-group col-md-8 mt-3">
             <div class="m-3">{{form.nombre.label}}{{form.nombre}}</div>
@@ -55,39 +59,24 @@
               {{form.ingredientes.label}}{{form.ingredientes}}
             </div>
           </div>
-          {% if form.errors %}<!-- Si hay errores em el formulario los muestro-->
-          <div class="ml-3">
-            {% for field in form %} {% if field.errors %} {{field.label_tag}}
-            {{field.errors}} {% endif %} {% endfor %}
-          </div>
           {% endif %}
           <div class="ml-3">
             <button class="button btn-effect mb-3" type="submit">
               Guardar
             </button>
-            <button
-              class="button btn-effect mb-3"
-              type="button"
-              onclick="window.location.href='{% url 'recetas' %}'"
-            >
+            <button class="button btn-effect mb-3" type="button" onclick="window.location.href='{% url 'recetas' %}'">
               Volver
             </button>
           </div>
         </form>
-      <!--. Agregar receta -->
+        <!--. Agregar receta -->
       </div>
       <!-- Agregar ingrediente-->
       <div class="col-3">
         <p>Si no encuentra el ingrediente, agreguelo aquí</p>
         <!-- Botón para ingresar ingrediente -->
-        <button
-          class="button btn-effect mb-3"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#collapseIngredientes"
-          aria-expanded="false"
-          aria-controls="collapseIngredientes"
-        >
+        <button class="button btn-effect mb-3" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapseIngredientes" aria-expanded="false" aria-controls="collapseIngredientes">
           Agregar Ingrediente
         </button>
 
