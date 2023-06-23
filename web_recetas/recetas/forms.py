@@ -31,6 +31,13 @@ class RecetaForm(ModelForm):
     class Meta:
         model = Receta
         fields = '__all__'
+        widgets={
+            'ingredientes':CheckboxSelectMultiple(
+                attrs={
+                    'type':'checkbox'
+                }
+            ),
+        }
 
 
 class NuevaRecetaForm(models.ModelForm):
